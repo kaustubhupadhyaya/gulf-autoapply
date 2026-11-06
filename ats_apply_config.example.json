@@ -1,0 +1,42 @@
+{
+  "_comment": "Copy to ats_apply_config.json and fill the paths. Contact details and resumes are read at run time from your own configs and are never copied into this repository. Dry runs are the default; live applying needs --live and ATS_APPLY_LIVE=1.",
+  "daily_cap": 3,
+  "per_run_cap": 2,
+  "gap_seconds": 60,
+  "min_free_mb": 1500,
+  "challenge_backoff_hours": 24,
+  "throttle_backoff_minutes": 30,
+  "chrome_exe": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+  "apply_profile_dir": "C:/Users/you/.secrets/profiles/ats-apply",
+  "mail_profile_dir": "C:/Users/you/.secrets/profiles/ats-mail",
+  "mail_profile_source": "C:/Users/you/.secrets/profiles/google",
+  "personals_py": "C:/Users/you/GitHub/linkedin-autoapply/config/personals.py",
+  "identities": {
+    "data": {
+      "label": "Primary identity",
+      "contact_config": "C:/Users/you/GitHub/naukri-autoapply/config.local.json",
+      "resume": {"python_constant": {"file": "C:/Users/you/GitHub/naukri-autoapply/run_unattended.py", "name": "RESUME_UPLOAD_FILE"}},
+      "mailbox_verifiable": true
+    },
+    "ai": {
+      "label": "Second identity",
+      "contact_config": "C:/Users/you/GitHub/naukri-autoapply/profiles/second/config.json",
+      "resume": {"json_key": ["resume", "upload_file"]},
+      "mailbox_verifiable": false
+    }
+  },
+  "confirmation_mail": {
+    "sender_domain_words": ["workable"],
+    "lookback_days": 14,
+    "max_delay_hours": 72
+  },
+  "already_applied_elsewhere": {
+    "_comment": "Read-only. A job whose normalised title and company match a row here is never applied to again, whatever its job id.",
+    "sqlite": {
+      "naukrigulf": "state/naukrigulf_apply.db",
+      "instahyre1": "state/instahyre_1.db",
+      "instahyre2": "state/instahyre_2.db"
+    },
+    "linkedin_uae_jobs": "C:/Users/you/GitHub/linkedin-autoapply/logs/linkedin_uae_jobs.jsonl"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "_comment": "Rules only, no personal data (this repo is public). The digest lists UAE, Saudi Arabia and Qatar data/AI jobs that no bot applies to: agency listings and employer boards. Personal overrides go in gulf_config.local.json (ignored by git); a key set there REPLACES the whole list here, so copy a list before adding to it.",
+  "digest": {
+    "max_years": 5,
+    "pace_seconds": [2.0, 4.5],
+    "title_keep": [
+      "data engineer", "data engineering", "data platform", "big data", "analytics engineer", "etl", "elt", "data warehouse",
+      "data warehousing", "data pipeline", "data pipelines", "dataops", "data infrastructure", "data developer", "spark",
+      "pyspark", "snowflake", "databricks", "airflow", "data lake", "lakehouse"
+    ],
+    "title_keep_ai": [
+      "machine learning engineer", "ml engineer", "mlops", "ml ops", "ai engineer", "applied scientist", "data scientist",
+      "llm", "generative ai", "genai", "nlp engineer", "computer vision engineer", "deep learning"
+    ],
+    "title_drop": [
+      "head", "director", "chief", "vp", "vice president", "svp", "evp", "president", "principal", "manager", "architect", "lead",
+      "intern", "internship", "trainee", "sales", "recruiter", "recruitment", "account executive", "marketing", "teacher",
+      "emirati", "emiratis", "emirati national", "uae national"
+    ],
+    "location_words": ["uae", "united arab emirates", "dubai", "abu dhabi", "sharjah", "ajman", "ras al khaimah", "fujairah", "al ain",
+      "ksa", "saudi", "saudi arabia", "riyadh", "jeddah", "dammam", "khobar", "al khobar", "dhahran",
+      "qatar", "doha", "lusail"],
+    "drop_text": [
+      "arabic speaking", "arabic-speaking", "fluent in arabic", "fluency in arabic", "arabic fluency", "native arabic",
+      "arabic is a must", "arabic is required", "arabic is mandatory", "uae national", "emirati national", "emiratis only",
+      "gcc national", "local candidates only", "uae residents only", "must be based in the uae", "currently based in the uae",
+      "valid uae visa", "visa holders only", "own visa", "no visa sponsorship", "unable to sponsor", "will not sponsor",
+      "saudi nationals only", "saudi national only", "for saudi nationals", "saudization role", "saudi candidates only",
+      "qatari nationals only", "qatari national only", "for qatari nationals",
+      "must have a transferable iqama", "transferable iqama required", "transferable iqama is required",
+      "must be based in saudi", "currently based in ksa", "must be based in qatar",
+      "qid holders only", "valid qid"
+    ],
+    "manual_searches": [
+      {"title": "Bayt: data engineer jobs in the UAE", "company": "Bayt", "url": "https://www.bayt.com/en/uae/jobs/data-engineer-jobs/"},
+      {"title": "Bayt: big data engineer jobs in the UAE", "company": "Bayt", "url": "https://www.bayt.com/en/uae/jobs/big-data-engineer-jobs/"},
+      {"title": "LinkedIn: data engineer, UAE, Easy Apply, past week", "company": "LinkedIn", "url": "https://www.linkedin.com/jobs/search/?keywords=data%20engineer&location=United%20Arab%20Emirates&f_AL=true&f_TPR=r604800"},
+      {"title": "NaukriGulf: data engineer jobs in the UAE", "company": "NaukriGulf", "url": "https://www.naukrigulf.com/data-engineer-jobs-in-uae"},
+      {"title": "Indeed UAE: data engineer", "company": "Indeed", "url": "https://ae.indeed.com/jobs?q=data+engineer&l=United+Arab+Emirates&fromage=7"},
+      {"title": "Bayt: data engineer jobs in Saudi Arabia", "company": "Bayt", "url": "https://www.bayt.com/en/saudi-arabia/jobs/data-engineer-jobs/"},
+      {"title": "Bayt: data engineer jobs in Qatar", "company": "Bayt", "url": "https://www.bayt.com/en/qatar/jobs/data-engineer-jobs/"},
+      {"title": "LinkedIn: data engineer, Saudi Arabia, Easy Apply, past week", "company": "LinkedIn", "url": "https://www.linkedin.com/jobs/search/?keywords=data%20engineer&location=Saudi%20Arabia&f_AL=true&f_TPR=r604800"},
+      {"title": "LinkedIn: data engineer, Qatar, Easy Apply, past week", "company": "LinkedIn", "url": "https://www.linkedin.com/jobs/search/?keywords=data%20engineer&location=Qatar&f_AL=true&f_TPR=r604800"},
+      {"title": "NaukriGulf: data engineer jobs in Saudi Arabia", "company": "NaukriGulf", "url": "https://www.naukrigulf.com/data-engineer-jobs-in-saudi-arabia"},
+      {"title": "NaukriGulf: data engineer jobs in Qatar", "company": "NaukriGulf", "url": "https://www.naukrigulf.com/data-engineer-jobs-in-qatar"},
+      {"title": "Indeed Saudi Arabia: data engineer", "company": "Indeed", "url": "https://sa.indeed.com/jobs?q=data+engineer&l=Saudi+Arabia&fromage=7"},
+      {"title": "Indeed Qatar: data engineer", "company": "Indeed", "url": "https://qa.indeed.com/jobs?q=data+engineer&l=Qatar&fromage=7"}
+    ],
+    "sources": [
+      {"key": "michaelpage-data", "type": "michaelpage", "url": "https://www.michaelpage.ae/jobs/data", "company": "Michael Page (agency)"},
+      {"key": "michaelpage-data-eng", "type": "michaelpage", "url": "https://www.michaelpage.ae/jobs/data-engineering", "company": "Michael Page (agency)"},
+      {"key": "michaelpage-ai", "type": "michaelpage", "url": "https://www.michaelpage.ae/jobs/ai", "company": "Michael Page (agency)"},
+      {"key": "michaelpage-tech", "type": "michaelpage", "url": "https://www.michaelpage.ae/jobs/technology", "company": "Michael Page (agency)"},
+      {"key": "bayut-dubizzle", "type": "workable", "account": "bayutdubizzle", "company": "Bayut | dubizzle"},
+      {"key": "careem", "type": "greenhouse", "board": "careem", "company": "Careem"},
+      {"key": "tamara", "type": "greenhouse", "board": "tamara", "company": "Tamara"},
+      {"key": "okx", "type": "greenhouse", "board": "okx", "company": "OKX", "location_required": true},
+      {"key": "binance-lever", "type": "lever", "company_token": "binance", "company": "Binance", "location_required": true},
+      {"key": "crypto-com", "type": "lever", "company_token": "crypto", "company": "Crypto.com", "location_required": true},
+      {"key": "ziina", "type": "ashby", "board": "ziina", "company": "Ziina"},
+      {"key": "foodics", "type": "workable", "account": "foodics", "company": "Foodics", "location_required": true},
+      {"key": "salla", "type": "workable", "account": "salla", "company": "Salla", "location_required": true}
+    ]
+  }
+}

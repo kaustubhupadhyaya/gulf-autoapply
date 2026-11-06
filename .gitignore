@@ -1,0 +1,24 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Local configuration (examples are tracked)
+naukrigulf_config.json
+ats_apply_config.json
+gulf_config.json
+gulf_config.local.json
+
+# Run state, profiles and artifacts
+state/
+logs/
+profiles/
+*.db
+*.db-journal
+*.xlsx
+*.log
+*.png
+*.bak
+*.tmp
+gulf_facts.json
