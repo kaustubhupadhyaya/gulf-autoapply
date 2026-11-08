@@ -17,6 +17,7 @@ import os
 import subprocess
 import time
 import urllib.request
+from datetime import datetime, time as dtime
 from pathlib import Path
 
 import websocket
@@ -39,6 +40,52 @@ BASE_FLAGS = (
 
 class CDPError(RuntimeError):
     pass
+
+
+class WindowClosed(RuntimeError):
+    """A new Gulf browser was asked to start outside the all-applier daily window."""
+
+
+# The all-applier daily window: a new Gulf browser starts only inside it, 04:00-10:00 IST on this PC's clock.
+# GULF_APPLY_WINDOW="HH:MM-HH:MM" overrides it; otherwise job-tracker's appliers_window.txt (start=/end=) is read.
+WINDOW_DEFAULT = ("04:00", "10:00")
+
+
+def _hhmm(text: str) -> bool:
+    try:
+        h, m = text.split(":")
+        return 0 <= int(h) < 24 and 0 <= int(m) < 60
+    except (AttributeError, ValueError):
+        return False
+
+
+def applier_window() -> tuple[str, str]:
+    """(start, end) of the window as "HH:MM". In order: GULF_APPLY_WINDOW, an appliers_window.txt beside this
+    file or beside its parent (job-tracker's start=/end= file), else 04:00-10:00. A malformed value falls
+    through to the next source."""
+    env = os.environ.get("GULF_APPLY_WINDOW", "").replace("start=", "").replace("end=", "")
+    start, sep, end = env.partition("-")
+    if sep and _hhmm(start.strip()) and _hhmm(end.strip()) and start.strip() != end.strip():
+        return start.strip(), end.strip()
+    for base in (Path(__file__).resolve().parent, Path(__file__).resolve().parent.parent):
+        try:
+            lines = (base / "appliers_window.txt").read_text(encoding="utf-8", errors="replace").splitlines()
+        except OSError:
+            continue
+        found = {}
+        for line in lines:
+            key, _, value = line.strip().partition("=")
+            if key in ("start", "end"):
+                found[key] = value.strip()
+        if _hhmm(found.get("start", "")) and _hhmm(found.get("end", "")) and found["start"] != found["end"]:
+            return found["start"], found["end"]
+    return WINDOW_DEFAULT
+
+
+def in_applier_window(now: datetime | None = None) -> bool:
+    """True when a new Gulf browser may start now (start <= now < end, this PC's clock = IST)."""
+    start, end = (dtime.fromisoformat(t) for t in applier_window())
+    return start <= (now or datetime.now()).time() < end
 
 
 def free_ram_mb() -> int | None:
@@ -91,6 +138,9 @@ class EdgeSession:
 
     # ------------------------------------------------------------------ lifecycle
     def start(self, timeout: float = 90) -> "EdgeSession":
+        if not in_applier_window():
+            start, end = applier_window()
+            raise WindowClosed(f"no new Gulf browser outside {start}-{end} IST (now {datetime.now():%H:%M})")
         self.profile.mkdir(parents=True, exist_ok=True)
         port_file = self.profile / "DevToolsActivePort"
         try:

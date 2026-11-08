@@ -16,6 +16,10 @@ Every applier runs as a **dry run by default**. Live applying requires both `--l
 
 Exit codes follow one contract: `0` finished, `44` daily cap, `42` needs the user, `47` throttled or machine-starved, `48` challenge, `3` live not armed, `1` error.
 
+## Run window
+
+A new browser starts only between **04:00 and 10:00 IST** (this PC's clock). `edge_cdp.EdgeSession.start` refuses outside that window with `WindowClosed`. The window comes from `GULF_APPLY_WINDOW="HH:MM-HH:MM"`, or from `appliers_window.txt` (`start=` / `end=`) beside `edge_cdp.py` or beside its parent folder; with neither it stays 04:00-10:00.
+
 ## Setup
 
 ```bash
